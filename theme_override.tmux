@@ -2,9 +2,9 @@
 set -e
 
 tmux_option() {
-	local -r option=$(tmux show-option -gqv "$1")
-	local -r fallback="$2"
-	echo "${option:-$fallback}"
+    local -r option=$(tmux show-option -gqv "$1")
+    local -r fallback="$2"
+    echo "${option:-$fallback}"
 }
 status-right-append-right() {
     local option=$(tmux_option status-right)

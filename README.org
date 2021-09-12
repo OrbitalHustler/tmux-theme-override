@@ -1,0 +1,21 @@
+#+TITLE: README
+* tmux-theme-override
+
+Override/add to status-right &amp; status-left even with a theme
+
+I created this plugin because I wanted to have  [[https://github.com/MunifTanjim/tmux-mode-indicator][tmux-mode-indicator]] working inside of [[https://github.com/wfxr/tmux-power][tmux-power]] theme. I needed some kind of mecanism to modify status-right after tmux-power has been initialized (and set status-right) but before tmux-mode-indicator has been initialized, because else the expression "#{tmux_mode_indicator}" in status-right would never get expanded.
+
+This plugin allows that by providing additional variables to be set:
+- @tto-status-right-append-right
+
+(add more later when needed, the basic mechanism is here ready to be expanded)
+
+Using tpm, make sure that the following order is respected in .tmux.conf:
+#+begin_src bash
+set -g @plugin 'wfxr/tmux-power' # Theme first
+set -g @plugin 'Percee/tmux-theme-override' # Load after theme and before plugins specific to your use case
+set -g @plugin 'MunifTanjim/tmux-mode-indicator' # Load after tmux-theme-override, example plugin specific to my use case
+
+# Then set tmux-theme-override variables
+set -g @tto-status-right-append-right ' #{tmux_mode_indicator}'
+#+end_src
